@@ -26,8 +26,9 @@ public class GetAllItemsImpl implements GetAllOperation {
     public GetAllResponse process(GetAllRequest request) {
         GetAllItemsRequest itemRequest = GetAllItemsRequest.builder()
                 .tagTitle(request.getTagTitle())
+                .page(request.getPage())
                 .build();
-        GetAllItemsResponse itemsResponse = zooStoreRestClient.getAllItemsByTag(itemRequest);
+        GetAllItemsResponse itemsResponse = zooStoreRestClient.getAllItemsByTag(itemRequest.getTagTitle(), itemRequest.getPage());
         Set<GetAllSingleItemResponse> items = new HashSet<>();
        for (GetSingleItemResponse item:itemsResponse.getItems() ) {
             GetItemResponse getItemResponse = storageRestClient.getItemById(item.getId().toString());

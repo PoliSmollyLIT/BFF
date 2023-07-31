@@ -30,10 +30,11 @@ public class ItemsController {
         return ResponseEntity.ok(getItemInfo.process(itemRequest));
     }
 
-    @GetMapping("/{tag}")
-    ResponseEntity getAllItemsByTagTitle(@PathVariable String tagTitle){
+    @GetMapping("/tag/{tag}")//?page={page}
+    ResponseEntity getAllItemsByTagTitle(@PathVariable String tag, @RequestParam Integer page){
         GetAllRequest request = GetAllRequest.builder()
-                .tagTitle(tagTitle)
+                .tagTitle(tag)
+                .page(page)
                 .build();
         return ResponseEntity.ok(getAllItems.process(request));
     }
