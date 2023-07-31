@@ -1,6 +1,8 @@
 package com.tinqin.academy.rest.controllers;
 
 import com.tinqin.academy.api.item.get.GetItemRequest;
+import com.tinqin.academy.api.item.getall.GetAllRequest;
+import com.tinqin.academy.core.GetAllItemsImpl;
 import com.tinqin.academy.core.GetItemInfoImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,6 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemsController {
     private final GetItemInfoImpl getItemInfo;
+    private final GetAllItemsImpl getAllItems;
 
     @GetMapping("/{id}")
     @Operation(summary = "Get info for Item in Storage", description = "Gets info for Item in Storage")
@@ -25,5 +28,13 @@ public class ItemsController {
                 .itemID(id)
                 .build();
         return ResponseEntity.ok(getItemInfo.process(itemRequest));
+    }
+
+    @GetMapping("/{tag}")
+    ResponseEntity getAllItemsByTagTitle(@PathVariable String tagTitle){
+        GetAllRequest request = GetAllRequest.builder()
+                .tagTitle(tagTitle)
+                .build();
+        return ResponseEntity.ok(getAllItems.process(request));
     }
 }
