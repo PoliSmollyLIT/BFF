@@ -8,11 +8,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+
 @EnableFeignClients(basePackages = {"com.tinqin.academy"})
 @ComponentScan(basePackages = {"com.tinqin.academy"})
-//@EntityScan(basePackages = {"com.tinqin.academy.persistance.models"})
-//@EnableJpaRepositories(basePackages = {"com.tinqin.academy.persistance.repositories"})
+@EntityScan(basePackages = {"com.tinqin.academy.persistence.entities"})
+@EnableJpaRepositories(basePackages = {"com.tinqin.academy.persistence.repositories"})
+@SpringBootApplication()
 public class BffApplication {
 
     public static void main(String[] args) {
