@@ -1,8 +1,7 @@
 package com.tinqin.academy.persistence.repositories;
 
-import com.tinqin.academy.persistence.entities.User;
+import com.tinqin.academy.persistence.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;

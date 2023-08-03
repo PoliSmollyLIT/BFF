@@ -2,11 +2,10 @@ package com.tinqin.academy.rest.controllers;
 
 import com.tinqin.academy.api.item.get.GetItemRequest;
 import com.tinqin.academy.api.item.getall.GetAllRequest;
-import com.tinqin.academy.core.GetAllItemsImpl;
-import com.tinqin.academy.core.GetItemInfoImpl;
+import com.tinqin.academy.core.item.GetAllItemsImpl;
+import com.tinqin.academy.core.item.GetItemInfoImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

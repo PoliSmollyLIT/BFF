@@ -1,4 +1,4 @@
-package com.tinqin.academy.rest.controllers;
+package com.tinqin.academy.rest.securitymodels;
 
 import lombok.*;
 
@@ -7,6 +7,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponse {
+public class AuthenticationResponse {
     private String token;
 }

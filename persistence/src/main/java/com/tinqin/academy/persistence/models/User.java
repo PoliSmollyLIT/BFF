@@ -1,4 +1,4 @@
-package com.tinqin.academy.persistence.entities;
+package com.tinqin.academy.persistence.models;
 
 import jakarta.persistence.*;
 import lombok.*;

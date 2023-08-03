@@ -1,4 +1,4 @@
-package com.tinqin.academy.rest.controllers;
+package com.tinqin.academy.rest.securitymodels;
 
 import lombok.*;
 

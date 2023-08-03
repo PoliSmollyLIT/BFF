@@ -1,4 +1,4 @@
-package com.tinqin.academy.core;
+package com.tinqin.academy.core.item;
 
 import com.example.storage.api.operations.itemStorage.get.GetItemResponse;
 import com.example.storage.restexport.StorageRestClient;

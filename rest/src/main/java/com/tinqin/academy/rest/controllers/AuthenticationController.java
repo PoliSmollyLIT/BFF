@@ -1,6 +1,10 @@
 package com.tinqin.academy.rest.controllers;
 
 import com.tinqin.academy.rest.security.AuthenticationService;
+import com.tinqin.academy.rest.securitymodels.AuthenticationRequest;
+import com.tinqin.academy.rest.securitymodels.AuthenticationResponse;
+import com.tinqin.academy.rest.securitymodels.LoginRequest;
+import com.tinqin.academy.rest.securitymodels.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

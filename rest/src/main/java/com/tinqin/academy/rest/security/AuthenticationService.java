@@ -1,12 +1,12 @@
 package com.tinqin.academy.rest.security;
 
-import com.tinqin.academy.persistence.entities.Role;
-import com.tinqin.academy.persistence.entities.User;
+import com.tinqin.academy.persistence.models.Role;
+import com.tinqin.academy.persistence.models.User;
 import com.tinqin.academy.persistence.repositories.UserRepository;
-import com.tinqin.academy.rest.controllers.AuthenticationRequest;
-import com.tinqin.academy.rest.controllers.AuthenticationResponse;
-import com.tinqin.academy.rest.controllers.LoginRequest;
-import com.tinqin.academy.rest.controllers.LoginResponse;
+import com.tinqin.academy.rest.securitymodels.AuthenticationRequest;
+import com.tinqin.academy.rest.securitymodels.AuthenticationResponse;
+import com.tinqin.academy.rest.securitymodels.LoginRequest;
+import com.tinqin.academy.rest.securitymodels.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
