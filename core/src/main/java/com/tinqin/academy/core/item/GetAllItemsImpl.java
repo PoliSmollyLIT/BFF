@@ -30,19 +30,21 @@ public class GetAllItemsImpl implements GetAllOperation {
                 .build();
         GetAllItemsResponse itemsResponse = zooStoreRestClient.getAllItemsByTag(itemRequest.getTagTitle(), itemRequest.getPage());
         Set<GetAllSingleItemResponse> items = new HashSet<>();
-       for (GetSingleItemResponse item:itemsResponse.getItems() ) {
-            GetItemResponse getItemResponse = storageRestClient.getItemById(item.getId().toString());
-            GetAllSingleItemResponse singleItem = GetAllSingleItemResponse.builder()
-                    .id(item.getId())
-                    .title(item.getTitle())
-                    .description(item.getDescription())
-                    .vendor(item.getVendorId())
-                    .archive(item.isArchive())
-                    .price(getItemResponse.getPrice())
-                    .quantity(getItemResponse.getQuantity())
-                    .build();
-            items.add(singleItem);
-        }
+
+        itemsResponse.getItems().parallelStream()
+                .forEach(item -> {
+                    GetItemResponse getItemResponse = storageRestClient.getItemById(item.getId().toString());
+                    GetAllSingleItemResponse singleItem = GetAllSingleItemResponse.builder()
+                            .id(item.getId())
+                            .title(item.getTitle())
+                            .description(item.getDescription())
+                            .vendor(item.getVendorId())
+                            .archive(item.isArchive())
+                            .price(getItemResponse.getPrice())
+                            .quantity(getItemResponse.getQuantity())
+                            .build();
+                    items.add(singleItem);
+                } );
         GetAllResponse response = GetAllResponse.builder()
                 .items(items)
                 .build();

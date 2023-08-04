@@ -19,6 +19,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID user;
+    private Double price;
     @OneToMany(mappedBy="cart")
     private List<CartItem> items;
 
