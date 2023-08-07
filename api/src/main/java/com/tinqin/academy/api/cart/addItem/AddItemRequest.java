@@ -14,5 +14,4 @@ public class AddItemRequest implements OperationRequest {
     private UUID cartId;
     private UUID itemID;
     private Integer quantity;
-    private Double price;
 }

@@ -4,7 +4,6 @@ import com.example.storage.api.operations.itemStorage.get.GetItemResponse;
 import com.example.storage.restexport.StorageRestClient;
 import com.example.zooostore.api.operations.item.getall.GetAllItemsRequest;
 import com.example.zooostore.api.operations.item.getall.GetAllItemsResponse;
-import com.example.zooostore.api.operations.item.getall.GetSingleItemResponse;
 import com.example.zooostore.restexport.ZooStoreRestClient;
 import com.tinqin.academy.api.item.getall.GetAllOperation;
 import com.tinqin.academy.api.item.getall.GetAllRequest;
@@ -15,11 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class GetAllItemsImpl implements GetAllOperation {
+public class GetAllItemsCore implements GetAllOperation {
     private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
     @Override

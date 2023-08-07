@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class GetCartImpl implements GetCartOperation {
+public class GetCartCore implements GetCartOperation {
     private final CartRepository cartRepository;
     @Override
     public GetCartResponse process(GetCartRequest request) {

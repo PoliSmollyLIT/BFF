@@ -17,6 +17,7 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private UUID itemId;
     private Integer quantity;
     private Double price;
     @ManyToOne

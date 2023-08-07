@@ -1,5 +1,6 @@
 package com.tinqin.academy.persistence.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,8 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID user;
-    private Double price;
+    @Column(nullable = false)
+    private Double price = 0.0;
     @OneToMany(mappedBy="cart")
     private List<CartItem> items;
 

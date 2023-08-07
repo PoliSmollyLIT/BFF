@@ -6,6 +6,7 @@ import com.tinqin.academy.api.cart.changequantity.ChangeQuantityResponse;
 import com.tinqin.academy.api.cart.changequantity.ChangeQuantitySingleItemResponse;
 import com.tinqin.academy.persistence.models.Cart;
 import com.tinqin.academy.persistence.models.CartItem;
+import com.tinqin.academy.persistence.repositories.CartItemRepository;
 import com.tinqin.academy.persistence.repositories.CartRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +18,23 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ChangeQuantityOfCartImpl implements ChangeQuantityOperation {
+public class ChangeQuantityOfCartCore implements ChangeQuantityOperation {
 
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public ChangeQuantityResponse process(ChangeQuantityRequest request) {
         Cart cartFromRepository = cartRepository.findById(request.getCartId())
                 .orElseThrow(()->new EntityNotFoundException("Cart with this ID not found"));
-        CartItem item = cartFromRepository.getItems().stream()
-                .filter(cartItem -> cartItem.getId() == request.getItemId())
-                .findFirst()
+        CartItem item = cartItemRepository.findCartItemByIdAndCart_Id(request.getItemId(), request.getCartId())
                 .orElseThrow(()->new EntityNotFoundException("Item with this ID not found"));
         item.setQuantity(item.getQuantity() + request.getQuantity());
         if(item.getQuantity() == 0){
             cartFromRepository.getItems().remove(item);
+            cartItemRepository.delete(item);
         }
+        cartItemRepository.save(item);
         cartRepository.save(cartFromRepository);
         return ChangeQuantityResponse.builder()
                 .cartId(cartFromRepository.getId())

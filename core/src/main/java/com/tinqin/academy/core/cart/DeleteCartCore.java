@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteCartImpl implements DeleteCartOperation {
+public class DeleteCartCore implements DeleteCartOperation {
     private final CartRepository cartRepository;
     @Override
     public DeleteCartResponse process(DeleteCartRequest request) {

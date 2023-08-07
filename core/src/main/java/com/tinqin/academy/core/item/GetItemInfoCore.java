@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetItemInfoImpl implements GetItemOperation {
+public class GetItemInfoCore implements GetItemOperation {
     private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
 
