@@ -34,13 +34,18 @@ public class AddItemToCartCore implements AddItemOperation {
              GetItemRequest.builder()
              .itemID(request.getItemID())
              .build());
-        CartItem item = CartItem.builder()
-                .itemId(request.getItemID())
-                .quantity(request.getQuantity())
-                .price(itemResponse.getPrice())
-                .cart(cartFromRepository)
-                .build();
+        CartItem item = cartItemRepository.findCartItemByItemIdAndCart_Id(request.getItemID(), request.getCartId())
+                .orElseGet(() ->
+                    cartItemRepository.save(CartItem.builder()
+                            .itemId(request.getItemID())
+                            .quantity(0)
+                            .price(itemResponse.getPrice())
+                            .cart(cartFromRepository)
+                            .build())
+                );
+        item.setQuantity(item.getQuantity() + request.getQuantity());
         cartItemRepository.save(item);
+
         cartFromRepository.getItems().add(item);
         cartRepository.save(cartFromRepository);
         return AddItemResponse.builder()

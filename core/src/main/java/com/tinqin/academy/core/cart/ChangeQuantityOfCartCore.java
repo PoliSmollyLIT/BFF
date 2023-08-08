@@ -27,7 +27,7 @@ public class ChangeQuantityOfCartCore implements ChangeQuantityOperation {
     public ChangeQuantityResponse process(ChangeQuantityRequest request) {
         Cart cartFromRepository = cartRepository.findById(request.getCartId())
                 .orElseThrow(()->new EntityNotFoundException("Cart with this ID not found"));
-        CartItem item = cartItemRepository.findCartItemByIdAndCart_Id(request.getItemId(), request.getCartId())
+        CartItem item = cartItemRepository.findCartItemByItemIdAndCart_Id(request.getItemId(), request.getCartId())
                 .orElseThrow(()->new EntityNotFoundException("Item with this ID not found"));
         item.setQuantity(item.getQuantity() + request.getQuantity());
         if(item.getQuantity() == 0){
