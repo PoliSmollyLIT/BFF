@@ -35,14 +35,13 @@
         <dependency>
             <groupId>com.tinqin.academy</groupId>
             <artifactId>persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.tinqin.academy</groupId>
-            <artifactId>persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.30</version>
         </dependency>
     </dependencies>
 </project>

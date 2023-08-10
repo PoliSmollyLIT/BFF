@@ -2,6 +2,7 @@ package com.tinqin.academy.rest.security;
 
 import com.tinqin.academy.persistence.models.Role;
 import com.tinqin.academy.persistence.models.User;
+import com.tinqin.academy.persistence.models.UserLevel;
 import com.tinqin.academy.persistence.repositories.UserRepository;
 import com.tinqin.academy.rest.securitymodels.AuthenticationRequest;
 import com.tinqin.academy.rest.securitymodels.AuthenticationResponse;
@@ -30,6 +31,8 @@ public class AuthenticationService {
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.USER)
+                    .currentPoints(500)
+                    .userLevel(UserLevel.BRONZE)
                     .build();
             userRepository.save(user);
             String token = jwtService.generateToken(user);

@@ -10,7 +10,9 @@ import com.tinqin.academy.api.cart.sell.SellCartOperation;
 import com.tinqin.academy.api.cart.sell.SellCartRequest;
 import com.tinqin.academy.api.cart.sell.SellCartResponse;
 import com.tinqin.academy.persistence.models.Cart;
+import com.tinqin.academy.persistence.models.User;
 import com.tinqin.academy.persistence.repositories.CartRepository;
+import com.tinqin.academy.persistence.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class SellCartCore implements SellCartOperation {
     private final StorageRestClient storageRestClient;
     private final CartRepository cartRepository;
+    private final UserRepository userRepository;
 
     @Override
     public SellCartResponse process(SellCartRequest request) {
@@ -32,6 +35,10 @@ public class SellCartCore implements SellCartOperation {
                     cartFromRepository.setPrice(cartFromRepository.getPrice() + item.getPrice()*item.getQuantity());
                 });
 
+        User user = userRepository.findById(cartFromRepository.getUser())
+                .orElseThrow(()-> new EntityNotFoundException("User with this ID not found"));
+
+        Double discount = cartFromRepository.getPrice() * user.getUserLevel().getPercentOff()/100;
         OrderAddResponse response = storageRestClient.addOrder(OrderAddRequest.builder()
                         .cartID(cartFromRepository.getId())
                         .user(cartFromRepository.getUser())
@@ -43,8 +50,14 @@ public class SellCartCore implements SellCartOperation {
                                         .build())
                                 .collect(Collectors.toList()))
                         .price(cartFromRepository.getPrice())
+                        .discount(discount)
                         .build());
 
+        user.setCurrentPoints(user.getCurrentPoints() + Integer.parseInt(String.valueOf(cartFromRepository.getPrice()))); // adds points for every 1 lev of the price of the cart
+        if(user.getUserLevel().getMax()<user.getCurrentPoints()){
+            user.setUserLevel(user.getUserLevel().setLevelByLevelNumber(user.getUserLevel().getLevelNumber()+1));
+        }
+        userRepository.save(user);
         return SellCartResponse.builder().response(response.getResult()).build();
     }
 }
