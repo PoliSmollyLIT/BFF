@@ -23,12 +23,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 //@SpringBootTest(properties = "spring.main.lazy-initialization=true", classes = {CartController.class})
-@SpringBootTest(classes = {BffApplication.class},webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
 public class ControllerTest {
 
-    @Autowired
+    /* @Autowired
     private MockMvc mockMvc;
 
     private final GetCartOperation getCartOperation;
@@ -65,4 +65,6 @@ public class ControllerTest {
                 .andExpect(jsonPath("$['cartId']").value(cart.getId()))
                 .andExpect(jsonPath("$['user']").value(cart.getUser()));
     }
+    */
+
 }

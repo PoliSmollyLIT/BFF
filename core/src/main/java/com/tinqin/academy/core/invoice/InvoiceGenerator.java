@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 
 @RequiredArgsConstructor
 public class InvoiceGenerator implements GenerateInvoiceOperation {
@@ -23,8 +26,13 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
                 // Creating the Object of Document
                 Document document = new Document(PageSize.A4);
 
+                // Setting the filename to orderId.pdf
+                StringBuilder fileName = new StringBuilder();
+                fileName.append(request.getOrderId());
+                fileName.append(".pdf");
+
                 // Getting instance of PdfWriter
-                PdfWriter.getInstance(document, response.getOutputStream());
+                PdfWriter.getInstance(document, new FileOutputStream(fileName.toString()));
 
                 // Opening the created document to modify it
                 document.open();
@@ -42,6 +50,18 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
 
                 // Adding the created paragraph in document
                 document.add(paragraph);
+
+                StringBuilder user = new StringBuilder();
+                user.append(request.getUserFistName());
+                user.append(" ");
+                user.append(request.getUserLastName());
+                //Adding info for the user
+                Chunk userName = new Chunk(user.toString(), FontFactory.getFont(FontFactory.COURIER, 20, Font.ITALIC));
+                document.add(userName);
+                Chunk userPhone = new Chunk(request.getPhone(), FontFactory.getFont(FontFactory.COURIER, 20, Font.ITALIC));
+                document.add(userPhone);
+                Chunk dateMade = new Chunk(request.getDateMade().toString(), FontFactory.getFont(FontFactory.COURIER, 20, Font.ITALIC));
+                document.add(dateMade);
 
                 // Creating a table of 3 columns
                 PdfPTable table = new PdfPTable(3);
@@ -79,11 +99,19 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
                                 table.addCell(String.valueOf(item.getPrice()));
                         });
 
+
+                // Add prices, discounts and final price
+                table.addCell(request.getPrice().toString());
+                table.addCell(request.getDiscount().toString());
+                table.addCell(request.getFinalPrice().toString());
+
                 // Adding the created table to document
                 document.add(table);
 
                 // Closing the document
                 document.close();
+
+                return InvoiceResponse.builder().response("Succssesfuly made file with name: " + fileName.toString()).build();
         }
 
 }
