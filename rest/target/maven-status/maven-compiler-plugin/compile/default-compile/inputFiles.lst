@@ -1,0 +1,14 @@
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\controllers\AuthenticationController.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\AuthenticationService.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\ApplicationConfiguration.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\OpenApiConfig.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\securitymodels\AuthenticationRequest.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\JwtService.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\securitymodels\AuthenticationResponse.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\JwtAuthenticationFilter.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\BffApplication.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\controllers\CartController.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\securitymodels\LoginRequest.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\security\SecurityConfiguration.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\controllers\ItemsController.java
+C:\Users\Polina\Documents\Work\Tinqin\BFF\rest\src\main\java\com\tinqin\academy\rest\securitymodels\LoginResponse.java
