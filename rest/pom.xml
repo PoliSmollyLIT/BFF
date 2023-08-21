@@ -83,7 +83,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.tinqin.academy.bff.BffApplication</mainClass>
+                    <mainClass>com.tinqin.academy.rest.BffApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
