@@ -1,7 +1,7 @@
 package com.tinqin.academy.domain;
 
-import com.example.zooostore.restexport.ZooStoreRestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tinquinstore.zooostore.restexport.ZooStoreRestClient;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class ZooStoreRestClientConfiguration {
 
-        @Bean(name = "ZooStoreRestClient")
-        public ZooStoreRestClient getRestExportClient() {
-            final ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.findAndRegisterModules();
-            return Feign.builder()
-                    .encoder(new JacksonEncoder(objectMapper))
-                    .decoder(new JacksonDecoder(objectMapper))
-                    .target(ZooStoreRestClient.class, "http://localhost:8080");
-        }
+    @Bean(name = "ZoosStoreRestClient")
+    public ZooStoreRestClient getRestExportClient() {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        return Feign.builder()
+                .encoder(new JacksonEncoder(objectMapper))
+                .decoder(new JacksonDecoder(objectMapper))
+                .target(ZooStoreRestClient.class, "http://localhost:8080");
+    }
 }

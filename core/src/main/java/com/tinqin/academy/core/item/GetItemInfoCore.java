@@ -1,9 +1,12 @@
 package com.tinqin.academy.core.item;
 
 import com.example.storage.restexport.StorageRestClient;
-import com.example.zooostore.api.operations.item.get.GetItemResponse;
-import com.example.zooostore.restexport.ZooStoreRestClient;
-import com.tinqin.academy.api.item.get.*;
+import com.tinqin.academy.api.item.get.GetItemInfoResponse;
+import com.tinqin.academy.api.item.get.GetItemOperation;
+import com.tinqin.academy.api.item.get.GetItemRequest;
+import com.tinqin.academy.api.item.get.GetItemVendorResponse;
+import com.tinquinstore.zooostore.api.operations.item.get.GetItemResponse;
+import com.tinquinstore.zooostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

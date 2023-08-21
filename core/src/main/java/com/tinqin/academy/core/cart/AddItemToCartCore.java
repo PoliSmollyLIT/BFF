@@ -1,6 +1,10 @@
 package com.tinqin.academy.core.cart;
 
-import com.example.zooostore.api.operations.item.get.GetItemResponse;
+import com.tinqin.academy.persistence.models.Cart;
+import com.tinqin.academy.persistence.models.CartItem;
+import com.tinqin.academy.persistence.repositories.CartItemRepository;
+import com.tinqin.academy.persistence.repositories.CartRepository;
+import com.tinquinstore.zooostore.api.operations.item.get.GetItemResponse;
 import com.tinqin.academy.api.cart.addItem.AddItemOperation;
 import com.tinqin.academy.api.cart.addItem.AddItemRequest;
 import com.tinqin.academy.api.cart.addItem.AddItemResponse;
@@ -8,10 +12,6 @@ import com.tinqin.academy.api.cart.addItem.AddItemSingleItemResponse;
 import com.tinqin.academy.api.item.get.GetItemInfoResponse;
 import com.tinqin.academy.api.item.get.GetItemOperation;
 import com.tinqin.academy.api.item.get.GetItemRequest;
-import com.tinqin.academy.persistence.models.Cart;
-import com.tinqin.academy.persistence.models.CartItem;
-import com.tinqin.academy.persistence.repositories.CartItemRepository;
-import com.tinqin.academy.persistence.repositories.CartRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

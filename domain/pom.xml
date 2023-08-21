@@ -36,14 +36,14 @@
             <version>12.4</version>
         </dependency>
         <dependency>
-            <groupId>com.example.storage</groupId>
-            <artifactId>restexport</artifactId>
-            <version>${storage.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.tinquinstore.zooostore</groupId>
             <artifactId>restexport</artifactId>
             <version>${zoostore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example.storage</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${storage.version}</version>
         </dependency>
     </dependencies>
 

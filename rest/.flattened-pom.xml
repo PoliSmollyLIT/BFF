@@ -49,8 +49,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>protobuf-java</artifactId>
           <groupId>com.google.protobuf</groupId>
+          <artifactId>protobuf-java</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
