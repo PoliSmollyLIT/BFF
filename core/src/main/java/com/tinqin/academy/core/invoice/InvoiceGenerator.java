@@ -11,11 +11,15 @@ import com.tinqin.academy.api.invoice.InvoiceResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
 
+@Service
 @RequiredArgsConstructor
 public class InvoiceGenerator implements GenerateInvoiceOperation {
         private final HttpServletResponse response;
@@ -108,10 +112,13 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
                 // Adding the created table to document
                 document.add(table);
 
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                PdfWriter.getInstance(document, out);
                 // Closing the document
                 document.close();
 
-                return InvoiceResponse.builder().response("Succssesfuly made file with name: " + fileName.toString()).build();
+                return InvoiceResponse.builder().response( new ByteArrayInputStream(out.toByteArray())).build();
+                //return InvoiceResponse.builder().response("Succssesfuly made file with name: " + fileName.toString()).build();
         }
 
 }

@@ -9,23 +9,36 @@ import com.tinqin.academy.api.cart.get.GetCartOperation;
 import com.tinqin.academy.api.cart.sell.SellCartOperation;
 import com.tinqin.academy.api.cart.sell.SellCartRequest;
 import com.tinqin.academy.api.cart.sell.SellCartResponse;
+import com.tinqin.academy.api.invoice.GenerateInvoiceOperation;
+import com.tinqin.academy.api.invoice.InvoiceRequest;
+import com.tinqin.academy.api.invoice.InvoiceResponse;
+import com.tinqin.academy.api.invoice.InvoiceSingleItem;
+import com.tinqin.academy.core.invoice.InvoiceGenerator;
 import com.tinqin.academy.persistence.models.Cart;
 import com.tinqin.academy.persistence.models.User;
 import com.tinqin.academy.persistence.repositories.CartRepository;
 import com.tinqin.academy.persistence.repositories.UserRepository;
+import com.tinquinstore.zooostore.restexport.ZooStoreRestClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SellCartCore implements SellCartOperation {
     private final StorageRestClient storageRestClient;
+    private final ZooStoreRestClient zooStoreRestClient;
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
+    private final GenerateInvoiceOperation invoiceGenerator;
 
+    @SneakyThrows
     @Override
     public SellCartResponse process(SellCartRequest request) {
         Cart cartFromRepository = cartRepository.findById(request.getCartID())
@@ -58,6 +71,30 @@ public class SellCartCore implements SellCartOperation {
             user.setUserLevel(user.getUserLevel().setLevelByLevelNumber(user.getUserLevel().getLevelNumber()+1));
         }
         userRepository.save(user);
-        return SellCartResponse.builder().response(response.getResult()).build();
+
+        InvoiceRequest invoiceRequest = InvoiceRequest.builder()
+                .userFistName(user.getFirstName())
+                .userLastName(user.getLastName())
+                .phone(user.getPhone())
+                .orderId(cartFromRepository.getId())
+                .dateMade( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(response.getResult())) // 2023-08-08 11:39:35.632766
+                .price(cartFromRepository.getPrice())
+                .discount(discount)
+                .finalPrice(cartFromRepository.getPrice() - discount)
+                .items(cartFromRepository.getItems().stream()
+                        .map(item -> InvoiceSingleItem.builder()
+                                .itemTitle(zooStoreRestClient.getItemById(item.getItemId().toString()).getTitle())
+                                .price(item.getPrice())
+                                .quantity(item.getQuantity())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+        InvoiceResponse invoiceResponse = invoiceGenerator.process(invoiceRequest);
+        ByteArrayInputStream bis = invoiceResponse.getResponse();
+
+        return SellCartResponse.builder()
+                .pdfFile(bis)
+                .filename("invoice"+cartFromRepository.getId().toString())
+                .build();
     }
 }
