@@ -26,7 +26,7 @@ services:
            "spring.datasource.password"="D@TiGoNachukam2345"
            "spring.jpa.database-platform"="org.hibernate.dialect.MySQLDialect"
            "spring.datasource.driver-class-name"="com.mysql.cj.jdbc.Driver"
-           "spring.jpa.hibernate.ddl"-auto="update"
+           "spring.jpa.hibernate.ddl-auto"="update"
            "pagination"="5"
          }'
 
@@ -45,7 +45,7 @@ services:
            "spring.datasource.password"="D@TiGoNachukam2345"
            "spring.jpa.database-platform"="org.hibernate.dialect.MySQLDialect"
            "spring.datasource.driver-class-name"="com.mysql.cj.jdbc.Driver"
-           "spring.jpa.hibernate.ddl"-auto="update"
+           "spring.jpa.hibernate.ddl-auto"="update"
          }'
 
 
@@ -65,7 +65,7 @@ services:
            "spring.datasource.password"="D@TiGoNachukam2345"
            "spring.jpa.database-platform"="org.hibernate.dialect.MySQLDialect"
            "spring.datasource.driver-class-name"="com.mysql.cj.jdbc.Driver"
-           "spring.jpa.hibernate.ddl"-auto="update"
+           "spring.jpa.hibernate.ddl-auto"="update"
          }'
 
 #volumes:
