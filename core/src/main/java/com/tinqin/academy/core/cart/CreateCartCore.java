@@ -17,6 +17,7 @@ public class CreateCartCore implements CreateCartOperation {
     public CreateCartResponse process(CreateCartRequest request) {
         Cart cart = Cart.builder()
                 .user(request.getUserId())
+                .price(0.0)
                 .build();
         cartRepository.save(cart);
        return CreateCartResponse.builder()

@@ -21,7 +21,7 @@ public class Cart {
     private UUID id;
     private UUID user;
     @Column(nullable = false)
-    private Double price = 0.0;
+    private Double price;
     @OneToMany(mappedBy="cart")
     private List<CartItem> items;
 

@@ -26,6 +26,7 @@ import com.tinqin.academy.core.cart.DeleteCartCore;
 import com.tinqin.academy.core.cart.GetCartCore;
 import com.tinqin.academy.core.cart.ChangeQuantityOfCartCore;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -88,7 +89,7 @@ public class CartController {
                 .build();
         SellCartResponse sellCartResponse = sellCart.process(request);
         HttpHeaders headers = new HttpHeaders();
-        String headerValue = "inline; filename="+ sellCartResponse.getFilename() +".pdf";
+        String headerValue = "attachment; filename="+ sellCartResponse.getFilename() +".pdf";
         headers.add("Content-Disposition", headerValue);
         return ResponseEntity
                 .ok()

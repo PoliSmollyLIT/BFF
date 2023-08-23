@@ -29,6 +29,8 @@ public class User implements UserDetails{
     private String password;
 
     private Integer currentPoints;
+
+    @Enumerated(EnumType.STRING)
     private UserLevel userLevel;
 
     @Enumerated(EnumType.STRING)

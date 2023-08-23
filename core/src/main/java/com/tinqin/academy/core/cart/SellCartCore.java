@@ -16,6 +16,7 @@ import com.tinqin.academy.api.invoice.InvoiceSingleItem;
 import com.tinqin.academy.core.invoice.InvoiceGenerator;
 import com.tinqin.academy.persistence.models.Cart;
 import com.tinqin.academy.persistence.models.User;
+import com.tinqin.academy.persistence.models.UserLevel;
 import com.tinqin.academy.persistence.repositories.CartRepository;
 import com.tinqin.academy.persistence.repositories.UserRepository;
 import com.tinquinstore.zooostore.restexport.ZooStoreRestClient;
@@ -66,11 +67,14 @@ public class SellCartCore implements SellCartOperation {
                         .discount(discount)
                         .build());
 
-        user.setCurrentPoints(user.getCurrentPoints() + Integer.parseInt(String.valueOf(cartFromRepository.getPrice()))); // adds points for every 1 lev of the price of the cart
+        user.setCurrentPoints(user.getCurrentPoints() + cartFromRepository.getPrice().intValue());    // adds points for every 1 lev of the price of the cart
         if(user.getUserLevel().getMax()<user.getCurrentPoints()){
-            user.setUserLevel(user.getUserLevel().setLevelByLevelNumber(user.getUserLevel().getLevelNumber()+1));
+            int userLevelNumber = user.getUserLevel().getLevelNumber();
+            UserLevel newUserLevel = user.getUserLevel().setLevelByLevelNumber( userLevelNumber +1);
+            user.setUserLevel(UserLevel.valueOf(newUserLevel.name()));
         }
         userRepository.save(user);
+
 
         InvoiceRequest invoiceRequest = InvoiceRequest.builder()
                 .userFistName(user.getFirstName())
@@ -89,6 +93,7 @@ public class SellCartCore implements SellCartOperation {
                                 .build())
                         .collect(Collectors.toList()))
                 .build();
+
         InvoiceResponse invoiceResponse = invoiceGenerator.process(invoiceRequest);
         ByteArrayInputStream bis = invoiceResponse.getResponse();
 

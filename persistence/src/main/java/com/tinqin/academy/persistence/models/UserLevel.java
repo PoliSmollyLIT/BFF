@@ -5,25 +5,32 @@ public enum UserLevel {
     SILVER(1000, 1499, 2, 5),
     GOLD(1500, 1999, 3, 10),
     PLATINUM(2000, 10000, 4, 15);
+    private final int min;
+    private final int max;
+    private final int levelNumber;
+    private final int percentOff;
 
-    private UserLevel(int min, int max, int levelNumber, int percentOff){
-
+    UserLevel(int min, int max, int levelNumber, int percentOff){
+        this.min = min;
+        this.max = max;
+        this.levelNumber = levelNumber;
+        this.percentOff = percentOff;
     }
 
     public int getMin(){
-        return this.getMin();
+        return this.min;
     }
 
     public int getMax(){
-        return this.getMax();
+        return this.max;
     }
 
     public int getLevelNumber(){
-        return this.getLevelNumber();
+        return this.levelNumber;
     }
 
     public int getPercentOff(){
-        return this.getPercentOff();
+        return this.percentOff;
     }
 
     public UserLevel setLevelByLevelNumber(int levelNumber){

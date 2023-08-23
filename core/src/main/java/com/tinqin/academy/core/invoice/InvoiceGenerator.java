@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 @Service
 @RequiredArgsConstructor
 public class InvoiceGenerator implements GenerateInvoiceOperation {
-        private final HttpServletResponse response;
+        //private final HttpServletResponse response;
 
         @SneakyThrows
         @Override
@@ -30,13 +30,10 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
                 // Creating the Object of Document
                 Document document = new Document(PageSize.A4);
 
-                // Setting the filename to orderId.pdf
-                StringBuilder fileName = new StringBuilder();
-                fileName.append(request.getOrderId());
-                fileName.append(".pdf");
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
 
                 // Getting instance of PdfWriter
-                PdfWriter.getInstance(document, new FileOutputStream(fileName.toString()));
+                PdfWriter.getInstance(document, out);
 
                 // Opening the created document to modify it
                 document.open();
@@ -112,13 +109,10 @@ public class InvoiceGenerator implements GenerateInvoiceOperation {
                 // Adding the created table to document
                 document.add(table);
 
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                PdfWriter.getInstance(document, out);
                 // Closing the document
                 document.close();
 
                 return InvoiceResponse.builder().response( new ByteArrayInputStream(out.toByteArray())).build();
-                //return InvoiceResponse.builder().response("Succssesfuly made file with name: " + fileName.toString()).build();
-        }
+       }
 
 }
