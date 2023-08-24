@@ -9,6 +9,9 @@ import com.tinqin.academy.api.cart.get.GetCartOperation;
 import com.tinqin.academy.api.cart.sell.SellCartOperation;
 import com.tinqin.academy.api.cart.sell.SellCartRequest;
 import com.tinqin.academy.api.cart.sell.SellCartResponse;
+import com.tinqin.academy.api.codes.use.UserCodeOperation;
+import com.tinqin.academy.api.codes.use.UserCodeRequest;
+import com.tinqin.academy.api.codes.use.UserCodeResponse;
 import com.tinqin.academy.api.invoice.GenerateInvoiceOperation;
 import com.tinqin.academy.api.invoice.InvoiceRequest;
 import com.tinqin.academy.api.invoice.InvoiceResponse;
@@ -38,6 +41,7 @@ public class SellCartCore implements SellCartOperation {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final GenerateInvoiceOperation invoiceGenerator;
+    private final UserCodeOperation userCodeOperation;
 
     @SneakyThrows
     @Override
@@ -52,7 +56,8 @@ public class SellCartCore implements SellCartOperation {
         User user = userRepository.findById(cartFromRepository.getUser())
                 .orElseThrow(()-> new EntityNotFoundException("User with this ID not found"));
 
-        Double discount = cartFromRepository.getPrice() * user.getUserLevel().getPercentOff()/100;
+        UserCodeResponse userCode = userCodeOperation.process(UserCodeRequest.builder().userId(user.getId()).build());
+        Double discount = cartFromRepository.getPrice() * (user.getUserLevel().getPercentOff() + userCode.getDiscount())/100;
         OrderAddResponse response = storageRestClient.addOrder(OrderAddRequest.builder()
                         .cartID(cartFromRepository.getId())
                         .user(cartFromRepository.getUser())
